@@ -8,7 +8,6 @@ namespace Game.Tanks
     {
         [Header("Components")]
         [SerializeField] private new Rigidbody rigidbody;
-        [SerializeField] private new Collider collider;
         [Header("Points")]
         [SerializeField] private List<PartPoint> points;
 
@@ -21,21 +20,34 @@ namespace Game.Tanks
         {
             get => transform;
         }
-        public Collider Collider
-        {
-            get => collider;
-        }
         public List<PartPoint> Points
         {
             get => points;
         }
-        public abstract PartTypes Type { get; }
+        public IPart Parent
+        {
+            get;
+            private set;
+        }
+        public abstract PartTypes Type
+        {
+            get;
+        }
 
+
+        public virtual void Initialize()
+        {
+
+        }
         public abstract void Accept(IPartInstaller installer);
 
         public void Demolish()
         {
             Destroy(gameObject);
+        }
+        public virtual void Join(IPart other)
+        {
+            Parent = other;
         }
     }
 }

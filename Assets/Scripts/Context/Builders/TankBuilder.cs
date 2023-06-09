@@ -4,7 +4,7 @@ using UnityEngine;
 using Zenject;
 using Game.Context.Factory;
 using Game.Tanks;
-
+using System;
 
 namespace Game.Context
 {
@@ -25,9 +25,14 @@ namespace Game.Context
             internal Instance(TankFactory tankFactory)
             {
                 this.tankFactory = tankFactory;
+
+                addedComponents = new List<Type>();
             }
             private TankFactory tankFactory;
 
+
+            private List<System.Type> addedComponents;
+            
 
             private Vector3 position;
             private Quaternion rotation;
@@ -81,10 +86,24 @@ namespace Game.Context
                 return this;
             }
 
+            public Instance With<T>() where T : Component
+            {
+                addedComponents.Add(typeof(T));
+                return this;
+            }
 
             public Tank Create()
             {
-                return tankFactory.Create(position, rotation, parent, bodyType, trackType, towerType, gunType, bulletType);
+                Tank tank = tankFactory.Create(position, rotation, parent, bodyType, trackType, towerType, gunType, bulletType);
+
+                foreach(Type type in addedComponents)
+                {
+                    tank.gameObject.AddComponent(type);
+                }
+
+                addedComponents.Clear();
+
+                return tank;
             }
         }
     }

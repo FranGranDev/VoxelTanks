@@ -7,11 +7,14 @@ namespace Game.Tanks
     {
         Rigidbody Rigidbody { get; }
         Transform Transform { get; }
-        Collider Collider { get; }
         List<PartPoint> Points { get; }
         PartTypes Type { get; }
 
+
+        void Initialize();
         void Accept(IPartInstaller installer);
+
+        void Join(IPart other);
         void Demolish();
     }
 

@@ -11,6 +11,16 @@ namespace Game.Tanks
 
         public IFactory<IBullet> Bullets { get; set; }
 
+        public override void Join(IPart other)
+        {
+            base.Join(other);
+
+            transform.parent = other.Transform;
+            if (Rigidbody)
+            {
+                Rigidbody.isKinematic = true;
+            }
+        }
         public override void Accept(IPartInstaller installer)
         {
             installer.Install(this);

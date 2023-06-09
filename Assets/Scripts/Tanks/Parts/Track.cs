@@ -9,6 +9,8 @@ namespace Game.Tanks
         [Header("Settings")]
         [SerializeField] private float speed;
 
+        private Vector3 force;
+
         public override PartTypes Type
         {
             get => PartTypes.Track;
@@ -16,12 +18,21 @@ namespace Game.Tanks
 
         public void Drive(float direction)
         {
-            Vector3 force = Vector3.forward * direction * speed * Time.deltaTime;
-
-            Rigidbody.AddForce(force, ForceMode.VelocityChange);
+            force = Transform.forward * direction * speed;
         }
 
+        private void FixedUpdate()
+        {
+            Rigidbody.velocity = Vector3.Lerp(Rigidbody.velocity, force, 0.25f);
+        }
 
+        public override void Join(IPart other)
+        {
+            base.Join(other);
+
+            Joint joint = gameObject.AddComponent<FixedJoint>();
+            joint.connectedBody = other.Rigidbody;
+        }
         public override void Accept(IPartInstaller installer)
         {
             installer.Install(this);

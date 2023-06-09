@@ -4,18 +4,25 @@ using UnityEngine;
 
 namespace Game.Tanks
 {
-    public class Body : Part, IBody
+    public class WheelTrack : Part, ITrack
     {
-        public override PartTypes Type => PartTypes.Body;
+        [Header("Setting")]
+        [SerializeField] private float wheelTorque;
+        [Header("Wheels")]
+        [SerializeField] private List<WheelCollider> wheelColliders;
+
+        public override PartTypes Type
+        {
+            get => PartTypes.Track;
+        }
 
 
         public void Drive(float direction)
         {
-            
-        }
-        public void Turn(float turn)
-        {
-            
+            foreach(WheelCollider wheelCollider in wheelColliders)
+            {
+                wheelCollider.motorTorque = direction * wheelTorque;
+            }
         }
 
         public override void Join(IPart other)

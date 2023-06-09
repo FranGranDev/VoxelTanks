@@ -6,7 +6,9 @@ namespace Game.Tanks
 {
     public interface IBullet
     {
-        void Fire(float power);
+        public Collider Collider { get; }
+
+        void Fire(float power, Vector3 direction);
         void Set(Transform point);
     }
 

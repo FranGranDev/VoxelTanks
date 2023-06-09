@@ -6,7 +6,7 @@ namespace Game.Tanks
 {
     public interface ITower : IPart
     {
-        void Rotate(float angle);
+        void Rotate(Vector3 target);
     }
 
     public enum TowerTypes

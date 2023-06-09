@@ -46,6 +46,8 @@ namespace Game.Context.Factory
             tank.InstallPart(trackFactory.Create(track));
             tank.InstallPart(trackFactory.Create(track));
 
+            tank.Initialize();
+
             return tank;
         }
     }
