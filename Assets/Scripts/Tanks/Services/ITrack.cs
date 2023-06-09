@@ -12,8 +12,8 @@ namespace Game.Tanks
     public enum TrackTypes
     {
         None,
-        Base,
-        Fast,
-        Super,
+        Small,
+        Medium,
+        Big,
     }
 }

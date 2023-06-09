@@ -7,7 +7,7 @@ namespace Game.Tanks
 {
     public class PartPair
     {
-        private PartPair(IPart parent, IPart child, PartPoint point)
+        private PartPair(IPart parent, IPart child, PartPoint point, Types joinTypes)
         {
             Parent = parent;
             Child = child;
@@ -20,11 +20,21 @@ namespace Game.Tanks
             child.Transform.position = Point.Place.position;
             child.Transform.rotation = Point.Place.rotation;
 
-            if(!child.Transform.gameObject.TryGetComponent(out joint))
+            switch(joinTypes)
             {
-                joint = child.Transform.gameObject.AddComponent<FixedJoint>();
+                case Types.FixedJoint:
+                    if (!child.Transform.gameObject.TryGetComponent(out joint))
+                    {
+                        joint = child.Transform.gameObject.AddComponent<FixedJoint>();
+                    }
+                    joint.connectedBody = parent.Rigidbody;
+                    break;
+                case Types.Kinematic:
+                    child.Transform.parent = parent.Transform;
+                    child.Rigidbody.isKinematic = true;
+                    break;
             }
-            joint.connectedBody = parent.Rigidbody;
+
         }
 
         public IPart Parent { get; private set; }
@@ -35,8 +45,14 @@ namespace Game.Tanks
         private Joint joint;
 
 
-        public static bool TryCreate(out PartPair pair, IPart parent, IPart child)
+        public static bool TryCreate(out PartPair pair, IPart parent, IPart child, Types joinTypes)
         {
+            if (parent == null || child == null)
+            {
+                pair = null;
+                return false;
+            }
+
             PartPoint point = parent.Points.FirstOrDefault(x => x.Type == child.Type && !x.Installed);
             if (point == null)
             {
@@ -44,13 +60,19 @@ namespace Game.Tanks
                 return false;
             }
 
-            pair = new PartPair(parent, child, point);
+            pair = new PartPair(parent, child, point, joinTypes);
             return true;
         }
         public void Destroy()
         {
             Point.Installed = false;
             joint.connectedBody = null;
+        }
+
+        public enum Types
+        {
+            FixedJoint,
+            Kinematic,
         }
     }
 }

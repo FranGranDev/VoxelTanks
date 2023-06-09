@@ -15,3 +15,6 @@ MonoBehaviour:
   tankData: {fileID: 11400000, guid: 3984860e06924544f902b3a4bae9641b, type: 2}
   bodyData: {fileID: 11400000, guid: c53059942cf78634dbf888ca1e8617eb, type: 2}
   trackData: {fileID: 11400000, guid: 7e84a1c9c88944d4a97025f0e430069d, type: 2}
+  towerData: {fileID: 11400000, guid: 057cbecdb047dec4998c6adbdc7008b2, type: 2}
+  gunData: {fileID: 11400000, guid: fd70f63bb551b0845b6ca5ac8933f204, type: 2}
+  ammoData: {fileID: 11400000, guid: 065ea894335b9ce45b08a073117daba2, type: 2}

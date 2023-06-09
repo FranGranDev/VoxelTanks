@@ -5,11 +5,24 @@ namespace Game.Tanks
     [CreateAssetMenu(menuName = "Tank Parts/Body")]
     public class BodyData : ScriptableObject
     {
-        [SerializeField] private Body body;
+        [SerializeField] private GameObject smallBody;
+        [SerializeField] private GameObject mediumBody;
+        [SerializeField] private GameObject bigBody;
 
-        public Body Body
+
+        public GameObject GetBody(BodyTypes types)
         {
-            get => body;
+            switch (types)
+            {
+                case BodyTypes.Small:
+                    return smallBody;
+                case BodyTypes.Medium:
+                    return mediumBody;
+                case BodyTypes.Big:
+                    return bigBody;
+                default:
+                    return null;
+            }
         }
     }
 }

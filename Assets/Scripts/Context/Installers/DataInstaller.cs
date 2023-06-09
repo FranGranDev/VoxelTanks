@@ -10,6 +10,9 @@ namespace Game.Context
         [SerializeField] private TankData tankData;
         [SerializeField] private BodyData bodyData;
         [SerializeField] private TrackData trackData;
+        [SerializeField] private TowerData towerData;
+        [SerializeField] private GunData gunData;
+        [SerializeField] private AmmoData ammoData;
 
         public override void InstallBindings()
         {
@@ -23,6 +26,18 @@ namespace Game.Context
 
             Container.Bind<TrackData>()
                 .FromInstance(trackData)
+                .AsSingle();
+
+            Container.Bind<AmmoData>()
+                .FromInstance(ammoData)
+                .AsSingle();
+
+            Container.Bind<TowerData>()
+                .FromInstance(towerData)
+                .AsSingle();
+
+            Container.Bind<GunData>()
+                .FromInstance(gunData)
                 .AsSingle();
         }
     }

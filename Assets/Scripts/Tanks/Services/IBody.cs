@@ -7,7 +7,14 @@ namespace Game.Tanks
 {
     public interface IBody : IPart
     {
-        void Drive(float direction);
-        void Turn(float turn);
+
+    }
+
+    public enum BodyTypes
+    {
+        None,
+        Small,
+        Medium,
+        Big,
     }
 }

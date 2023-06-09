@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d84544971f2717344adf8c2e14d1f536, type: 3}
   m_Name: Track Data
   m_EditorClassIdentifier: 
-  track: {fileID: 166630635, guid: 8effdc91cbe3b614eb50d491c643a181, type: 3}
+  smallTrack: {fileID: 8824965561655877809, guid: 8effdc91cbe3b614eb50d491c643a181, type: 3}
+  mediumTrack: {fileID: 8824965561655877809, guid: 8effdc91cbe3b614eb50d491c643a181, type: 3}
+  bigTrack: {fileID: 8824965561655877809, guid: 8effdc91cbe3b614eb50d491c643a181, type: 3}

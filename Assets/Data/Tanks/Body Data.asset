@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b7ba6ffb2009c34a84b709c132d6039, type: 3}
   m_Name: Body Data
   m_EditorClassIdentifier: 
-  body: {fileID: 91568666, guid: 9a7df7c68d28ca04a981d133955b85e5, type: 3}
+  smallBody: {fileID: 4553237431817087559, guid: 9a7df7c68d28ca04a981d133955b85e5, type: 3}
+  mediumBody: {fileID: 4553237431817087559, guid: 9a7df7c68d28ca04a981d133955b85e5, type: 3}
+  bigBody: {fileID: 4553237431817087559, guid: 9a7df7c68d28ca04a981d133955b85e5, type: 3}

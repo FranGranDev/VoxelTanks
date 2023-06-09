@@ -12,6 +12,7 @@ namespace Game.Tanks
         PartTypes Type { get; }
 
         void Accept(IPartInstaller installer);
+        void Demolish();
     }
 
     [System.Serializable]
@@ -39,6 +40,9 @@ namespace Game.Tanks
     {
         Body,
         Track,
+        Tower,
+        Gun,
+        Ammo,
     }
 
 
@@ -46,5 +50,8 @@ namespace Game.Tanks
     {
         void Install(IBody body);
         void Install(ITrack track);
+        void Install(ITower tower);
+        void Install(IGun gun);
+        void Install(IAmmo ammo);
     }
 }

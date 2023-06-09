@@ -32,5 +32,10 @@ namespace Game.Tanks
         public abstract PartTypes Type { get; }
 
         public abstract void Accept(IPartInstaller installer);
+
+        public void Demolish()
+        {
+            Destroy(gameObject);
+        }
     }
 }

@@ -8,4 +8,12 @@ namespace Game.Tanks
     {
         void Rotate(float angle);
     }
+
+    public enum TowerTypes
+    {
+        None,
+        Small,
+        Medium,
+        Big,
+    }
 }

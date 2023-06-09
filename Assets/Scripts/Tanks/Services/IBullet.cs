@@ -9,4 +9,10 @@ namespace Game.Tanks
         void Fire(float power);
         void Set(Transform point);
     }
+
+    public enum BulletTypes
+    {
+        None,
+        Base,
+    }
 }
