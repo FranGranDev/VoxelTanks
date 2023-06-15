@@ -13,6 +13,8 @@ namespace Game.Context
         [SerializeField] private TowerData towerData;
         [SerializeField] private GunData gunData;
         [SerializeField] private AmmoData ammoData;
+        [Space]
+        [SerializeField] private EffectsData effectsData;
 
         public override void InstallBindings()
         {
@@ -38,6 +40,11 @@ namespace Game.Context
 
             Container.Bind<GunData>()
                 .FromInstance(gunData)
+                .AsSingle();
+
+
+            Container.Bind<EffectsData>()
+                .FromInstance(effectsData)
                 .AsSingle();
         }
     }

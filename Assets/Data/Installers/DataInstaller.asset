@@ -18,3 +18,4 @@ MonoBehaviour:
   towerData: {fileID: 11400000, guid: 057cbecdb047dec4998c6adbdc7008b2, type: 2}
   gunData: {fileID: 11400000, guid: fd70f63bb551b0845b6ca5ac8933f204, type: 2}
   ammoData: {fileID: 11400000, guid: 065ea894335b9ce45b08a073117daba2, type: 2}
+  effectsData: {fileID: 11400000, guid: 3c8009a2f0febc24dbef4b24a12a96d4, type: 2}

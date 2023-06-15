@@ -23,9 +23,13 @@ namespace Game.Tanks
         private bool reloaded;
         private bool reloading;
 
+        private Vector3 target;
 
-        public override void Initialize()
+
+        public override void Initialize(Rigidbody rigidbody)
         {
+            base.Initialize(rigidbody);
+
             Reload();
         }
 
@@ -57,21 +61,45 @@ namespace Game.Tanks
             bullet.Set(firePoint);
             bullet.Fire(power, firePoint.forward);
 
-            reloaded = false;
+            parent.AddForceAtPosition(-firePoint.forward * power * bullet.Mass * 0.25f, firePoint.position, ForceMode.VelocityChange);
 
+            reloaded = false;
             Reload();
         }
-
-        public override void Join(IPart other)
+        public void Aim(Vector3 target)
         {
-            base.Join(other);
-
-            transform.parent = other.Transform;
-            if (Rigidbody)
-            {
-                Rigidbody.isKinematic = true;
-            }
+            this.target = target;
         }
+
+        private void Rotate()
+        {
+            if (target == default)
+                return;
+
+            float angle = CalculateAngle(target);
+
+
+            Quaternion localRotation = Quaternion.Euler(Mathf.Clamp(angle, -45, 15f), 0, 0);
+            transform.localRotation = Quaternion.Lerp(transform.localRotation, localRotation, 0.1f);
+        }
+        private float CalculateAngle(Vector3 target)
+        {
+            Vector3 vector = (firePoint.position - target);
+            float distance = vector.magnitude;
+
+            float time = distance / power;
+
+            float fallY = time * time * Physics.gravity.y / 2;
+
+
+            return Mathf.Atan((vector.y + fallY) / distance) * Mathf.Rad2Deg;
+        }
+
+        private void FixedUpdate()
+        {
+            Rotate();
+        }
+
         public override void Accept(IPartInstaller installer)
         {
             installer.Install(this);

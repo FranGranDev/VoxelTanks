@@ -13,26 +13,27 @@ namespace Game.Context
         [Inject]
         private TankFactory tankFactory;
 
+        [Inject]
+        private DiContainer container;
 
         public Instance New()
         {
-            return new Instance(tankFactory);
+            return new Instance(tankFactory, container);
         }
 
 
         public class Instance
         {
-            internal Instance(TankFactory tankFactory)
+            internal Instance(TankFactory tankFactory, DiContainer container)
             {
                 this.tankFactory = tankFactory;
+                this.container = container;
 
                 addedComponents = new List<Type>();
             }
             private TankFactory tankFactory;
+            private DiContainer container;
 
-
-            private List<System.Type> addedComponents;
-            
 
             private Vector3 position;
             private Quaternion rotation;
@@ -43,6 +44,10 @@ namespace Game.Context
             private GunTypes gunType;
             private BulletTypes bulletType;
             private TrackTypes trackType;
+
+
+            private List<Type> addedComponents;
+
 
 
             public Instance Position(Vector3 argument)
@@ -60,6 +65,7 @@ namespace Game.Context
                 parent = argument;
                 return this;
             }
+
             public Instance Body(BodyTypes argument)
             {
                 bodyType = argument;
@@ -92,15 +98,16 @@ namespace Game.Context
                 return this;
             }
 
+
             public Tank Create()
             {
                 Tank tank = tankFactory.Create(position, rotation, parent, bodyType, trackType, towerType, gunType, bulletType);
 
+
                 foreach(Type type in addedComponents)
                 {
-                    tank.gameObject.AddComponent(type);
+                    container.InstantiateComponent(type, tank.gameObject);
                 }
-
                 addedComponents.Clear();
 
                 return tank;

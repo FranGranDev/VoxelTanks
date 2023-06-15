@@ -6,33 +6,56 @@ namespace Game.Tanks
 {
     public class Track : Part, ITrack
     {
-        [Header("Settings")]
-        [SerializeField] private float speed;
+        [Header("Setting")]
+        [SerializeField] private AnimationCurve torqueCurve;
+        [SerializeField] private float maxSpeed;
+        [SerializeField] private float wheelTorque;
+        [Header("Wheels")]
+        [SerializeField] private List<WheelCollider> wheelColliders;
 
-        private Vector3 force;
-
+        private List<WheelView> wheelViews;
+        
         public override PartTypes Type
         {
             get => PartTypes.Track;
         }
+        public float TorqueRatio
+        {
+            get
+            {
+                return torqueCurve.Evaluate(parent.velocity.magnitude / maxSpeed);
+            }
+        }
 
         public void Drive(float direction)
         {
-            force = Transform.forward * direction * speed;
+            foreach(WheelCollider wheelCollider in wheelColliders)
+            {
+                wheelCollider.motorTorque = direction * wheelTorque * TorqueRatio;
+            }
         }
 
-        private void FixedUpdate()
+        public override void Initialize(Rigidbody parent)
         {
-            Rigidbody.velocity = Vector3.Lerp(Rigidbody.velocity, force, 0.25f);
-        }
+            base.Initialize(parent);
 
-        public override void Join(IPart other)
+            wheelViews = new List<WheelView>(GetComponentsInChildren<WheelView>());
+        }
+        protected override void OnDemolish(Rigidbody rigidbody)
         {
-            base.Join(other);
+            foreach(WheelView wheelView in wheelViews)
+            {
+                wheelView.Demolish(rigidbody.velocity);
+            }
+            foreach(WheelCollider wheelCollider in wheelColliders)
+            {
+                Destroy(wheelCollider);
+            }
 
-            Joint joint = gameObject.AddComponent<FixedJoint>();
-            joint.connectedBody = other.Rigidbody;
+            wheelViews.Clear();
+            wheelColliders.Clear();
         }
+
         public override void Accept(IPartInstaller installer)
         {
             installer.Install(this);

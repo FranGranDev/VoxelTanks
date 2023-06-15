@@ -18,13 +18,14 @@ namespace Game.Tanks
             this.target = target;
         }
 
+
         private void FixedUpdate()
         {
-            if (Parent == null)
+            if (parent == null)
                 return;
             Vector3 direction = target - transform.position;
 
-            direction = Parent.Transform.InverseTransformDirection(direction);
+            direction = parent.gameObject.transform.InverseTransformDirection(direction);
             direction.y = 0;
             direction.Normalize();
 
@@ -34,17 +35,6 @@ namespace Game.Tanks
             Quaternion rotation = Quaternion.LookRotation(direction);
 
             transform.localRotation = Quaternion.Lerp(transform.localRotation, rotation, 0.25f * turnSpeed);
-        }
-
-        public override void Join(IPart other)
-        {
-            base.Join(other);
-
-            transform.parent = other.Transform;
-            if (Rigidbody)
-            {
-                Rigidbody.isKinematic = true;
-            }
         }
 
         public override void Accept(IPartInstaller installer)

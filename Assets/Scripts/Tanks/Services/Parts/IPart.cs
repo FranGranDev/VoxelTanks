@@ -5,13 +5,14 @@ namespace Game.Tanks
 {
     public interface IPart
     {
-        Rigidbody Rigidbody { get; }
+        public int MaxHp { get; }
+
         Transform Transform { get; }
         List<PartPoint> Points { get; }
         PartTypes Type { get; }
 
 
-        void Initialize();
+        void Initialize(Rigidbody parent);
         void Accept(IPartInstaller installer);
 
         void Join(IPart other);

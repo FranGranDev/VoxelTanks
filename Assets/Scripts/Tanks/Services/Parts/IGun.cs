@@ -10,6 +10,7 @@ namespace Game.Tanks
 
         public void Shot();
         public void Reload();
+        public void Aim(Vector3 target);
     }
 
     public enum GunTypes

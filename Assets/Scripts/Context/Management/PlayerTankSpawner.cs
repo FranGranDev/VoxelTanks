@@ -5,6 +5,7 @@ using Zenject;
 using Game.Tanks;
 using Game.UserInput;
 using Game.Context.Factory;
+using Game;
 
 
 namespace Game.Context
@@ -16,6 +17,10 @@ namespace Game.Context
 
         [Inject]
         private TankBuilder tankBuilder;
+
+        [Inject]
+        private PlayerCamera playerCamera;
+
 
         private void Start()
         {
@@ -29,7 +34,11 @@ namespace Game.Context
                 .Ammo(BulletTypes.Base)
                 .Track(TrackTypes.Medium)
                 .With<TankController>()
+                .With<Player>()
                 .Create();
+
+            playerCamera.SetTarget(tank.transform);
+
 
             Tank enemy = tankBuilder.New()
                 .Position(enemySpawn.position)

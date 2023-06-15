@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e15117c23e14094fa92325bf4f42ede, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 1
   collider: {fileID: 9155036684487997075}
   rigidbody: {fileID: 9155036684070138835}
 --- !u!54 &9155036684070138835
@@ -126,7 +127,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 88a8602ea843d414f9fda576ea5f4f20, type: 2}
+  - {fileID: 2100000, guid: 6abefb7685ebda546891b688182fc7a5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

@@ -1,30 +1,64 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 namespace Game.Tanks
 {
-    public class Tank : MonoBehaviour, IPartInstaller, IBodyControll, ITowerControll, IGunControll
+    public class Tank : MonoBehaviour, IPartInstaller, IBodyControll, ITowerControll, IGunControll, IEntity
     {
+        [Header("Components")]
+        [SerializeField] private new Rigidbody rigidbody;
+
+
+        [Inject]
+        private IFactory<HitInfo, float, IEffect> effectFactory;
+
+
         private IBody body;
         private ITower tower;
         private IGun gun;
-
         private List<ITrack> leftTracks = new List<ITrack>();
         private List<ITrack> rightTracks = new List<ITrack>();
-
         private List<IPart> parts = new List<IPart>();
+        private List<PartPair> pairs = new List<PartPair>();
 
+        private int maxHp;
+        private int hp;
 
         private float drive;
         private float turn;
 
 
-        public void Initialize()
+        public int Hp
         {
-
+            get => hp;
+            set
+            {
+                hp = value;
+                hp = Mathf.Max(hp, 0);
+            }
+        }
+        public int MaxHp
+        {
+            get => maxHp;
         }
 
+
+        public void Initialize()
+        {
+            rigidbody.centerOfMass = new Vector3(0.1f, 0.05f, 0);
+
+            foreach(IPart part in parts)
+            {
+                part.Initialize(rigidbody);
+
+                maxHp += part.MaxHp;
+            }
+            parts.ForEach(x => x.Initialize(rigidbody));
+
+            hp = maxHp;
+        }
         private void Drive()
         {
             foreach(ITrack track in leftTracks)
@@ -52,6 +86,11 @@ namespace Game.Tanks
                 return;
 
             tower.Rotate(target);
+
+            if (gun == null)
+                return;
+
+            gun.Aim(target);
         }
         void IGunControll.Fire()
         {
@@ -62,8 +101,47 @@ namespace Game.Tanks
         }
 
 
+        public void Hit(HitInfo info)
+        {
+            if (Hp == 0)
+                return;
 
-        private List<PartPair> pairs = new List<PartPair>();
+            Hp -= info.Damage;
+
+            if(Hp == 0)
+            {
+                Demolish();
+            }
+            else
+            {
+                effectFactory.Create(info, 5);
+            }
+        }
+
+        private void Demolish()
+        {
+            foreach(IPart part in parts)
+            {
+                part.Demolish();
+            }
+            parts.Clear();
+
+            foreach(PartPair pair in pairs)
+            {
+                pair.Destroy();
+            }
+            pairs.Clear();
+
+            rigidbody.isKinematic = true;
+
+            gun = null;
+            body = null;
+            tower = null;
+            leftTracks.Clear();
+            rightTracks.Clear();
+        }
+
+
         private bool CreatePair(IPart parent, IPart child)
         {
             if(PartPair.TryCreate(out PartPair pair, parent, child))
@@ -138,5 +216,6 @@ namespace Game.Tanks
         {
             Drive();
         }
+
     }
 }
