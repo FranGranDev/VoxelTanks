@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Body Data
   m_EditorClassIdentifier: 
   smallBody: {fileID: 4553237431817087559, guid: 9a7df7c68d28ca04a981d133955b85e5, type: 3}
-  mediumBody: {fileID: 4553237431817087559, guid: 9a7df7c68d28ca04a981d133955b85e5, type: 3}
-  bigBody: {fileID: 4553237431817087559, guid: 9a7df7c68d28ca04a981d133955b85e5, type: 3}
+  mediumBody: {fileID: 5067318975476154343, guid: b2f5067e3d4d44448a157bc31e9694a6, type: 3}
+  bigBody: {fileID: 5334293877016357573, guid: d17cf7152a52070488096c19883ca0da, type: 3}

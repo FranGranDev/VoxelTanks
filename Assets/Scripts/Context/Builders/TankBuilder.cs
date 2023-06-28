@@ -4,6 +4,7 @@ using UnityEngine;
 using Zenject;
 using Game.Context.Factory;
 using Game.Tanks;
+using Game.Services;
 using System;
 
 namespace Game.Context
@@ -30,6 +31,7 @@ namespace Game.Context
                 this.container = container;
 
                 addedComponents = new List<Type>();
+                bindables = new List<IBindable<Tank>>();
             }
             private TankFactory tankFactory;
             private DiContainer container;
@@ -47,7 +49,7 @@ namespace Game.Context
 
 
             private List<Type> addedComponents;
-
+            private List<IBindable<Tank>> bindables;
 
 
             public Instance Position(Vector3 argument)
@@ -97,7 +99,12 @@ namespace Game.Context
                 addedComponents.Add(typeof(T));
                 return this;
             }
+            public Instance Bind(IBindable<Tank> target)
+            {
+                bindables.Add(target);
 
+                return this;
+            }
 
             public Tank Create()
             {
@@ -109,6 +116,12 @@ namespace Game.Context
                     container.InstantiateComponent(type, tank.gameObject);
                 }
                 addedComponents.Clear();
+
+                foreach(IBindable<Tank> bindable in bindables)
+                {
+                    bindable.Bind(tank);
+                }
+                bindables.Clear();
 
                 return tank;
             }

@@ -389,7 +389,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 419332512160145932, guid: 828cb97fa1c1c244fb5fbd6a350afbba, type: 3}
       propertyPath: m_Name
-      value: Tower Variant
+      value: Tower Small
       objectReference: {fileID: 0}
     - target: {fileID: 4164586349248408209, guid: 828cb97fa1c1c244fb5fbd6a350afbba, type: 3}
       propertyPath: m_RootOrder

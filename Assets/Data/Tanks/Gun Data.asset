@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Gun Data
   m_EditorClassIdentifier: 
   smallGun: {fileID: 5448888613829185194, guid: 7b48fc08c7dd4aa479758e456938021a, type: 3}
-  mediumGun: {fileID: 5448888613829185194, guid: 7b48fc08c7dd4aa479758e456938021a, type: 3}
-  bigGun: {fileID: 5448888613829185194, guid: 7b48fc08c7dd4aa479758e456938021a, type: 3}
+  mediumGun: {fileID: 5601640446287183613, guid: d7969cb15aef1c84f86acdbdca4ea919, type: 3}
+  bigGun: {fileID: 5262654800032683561, guid: 721979d9e56d5b943811c203c3a77041, type: 3}

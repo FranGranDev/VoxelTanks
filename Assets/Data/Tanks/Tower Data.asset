@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Tower Data
   m_EditorClassIdentifier: 
   smallTower: {fileID: 466686656931829851, guid: 94dc4d1650425574aad100dd981a009f, type: 3}
-  mediumTower: {fileID: 466686656931829851, guid: 94dc4d1650425574aad100dd981a009f, type: 3}
-  bigTower: {fileID: 466686656931829851, guid: 94dc4d1650425574aad100dd981a009f, type: 3}
+  mediumTower: {fileID: 382823901893963832, guid: 7c1805605155eee4f9f37e8e558aece9, type: 3}
+  bigTower: {fileID: 2284052222062091715, guid: 294415533da25624f9c63e283ec091e8, type: 3}
